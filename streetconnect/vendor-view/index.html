@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VendorGo — Vendor App</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="notch"></div>
+    <span>●●●</span>
+  </div>
+  <div class="screen" id="screen">
+    
+    <!-- ONBOARDING: WELCOME -->
+    <div class="view" id="view-welcome">
+      <div class="onboard-bg">
+        <div class="logo-area">
+          <div class="logo-icon">🛒</div>
+          <div class="logo-title">VendorGo</div>
+          <div class="logo-sub">Your digital street stall</div>
+        </div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:32px;">
+          <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+        </div>
+        <div class="onboard-card" style="margin-bottom:auto">
+          <h2>Welcome, Vendor! 🙏</h2>
+          <p>Reach more customers, go live on the map, and grow your daily earnings.</p>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(34,197,94,0.1);border-radius:14px;padding:14px;">
+              <span style="font-size:22px;">📍</span>
+              <div><div style="color:#fff;font-size:13px;font-weight:700;">Live Map Presence</div><div style="color:rgba(255,255,255,0.5);font-size:12px;">Let customers find you in real-time</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(37,99,235,0.1);border-radius:14px;padding:14px;">
+              <span style="font-size:22px;">📊</span>
+              <div><div style="color:#fff;font-size:13px;font-weight:700;">Daily Analytics</div><div style="color:rgba(255,255,255,0.5);font-size:12px;">Track sales and demand insights</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(249,115,22,0.1);border-radius:14px;padding:14px;">
+              <span style="font-size:22px;">🔥</span>
+              <div><div style="color:#fff;font-size:13px;font-weight:700;">Happy Hour Deals</div><div style="color:rgba(255,255,255,0.5);font-size:12px;">Boost sales with timed offers</div></div>
+            </div>
+          </div>
+          <button class="btn-green" onclick="goTo('view-phone')">Get Started →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ONBOARDING: PHONE -->
+    <div class="view hidden-right" id="view-phone">
+      <div class="onboard-bg">
+        <div class="logo-area"><div class="logo-icon">📱</div><div class="logo-title">Enter Phone</div></div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:32px;">
+          <div class="step-dot"></div><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+        </div>
+        <div class="onboard-card">
+          <h2>Your Mobile Number</h2>
+          <p>We'll send you a 4-digit OTP to verify your number.</p>
+          <div class="input-wrap">
+            <span class="input-flag">🇮🇳</span>
+            <span class="phone-prefix">+91</span>
+            <input type="tel" class="onboard-input" placeholder="Enter 10-digit number" maxlength="10" id="phone-input" oninput="checkPhone()">
+          </div>
+          <button class="btn-green" id="phone-next-btn" onclick="goTo('view-otp')" style="opacity:0.5;pointer-events:none;">Send OTP →</button>
+        </div>
+        <button onclick="goTo('view-welcome')" style="color:rgba(255,255,255,0.4);background:none;border:none;margin-top:20px;font-size:14px;font-family:var(--font);cursor:pointer;">← Back</button>
+      </div>
+    </div>
+
+    <!-- ONBOARDING: OTP -->
+    <div class="view hidden-right" id="view-otp">
+      <div class="onboard-bg">
+        <div class="logo-area"><div class="logo-icon">🔐</div><div class="logo-title">Verify OTP</div></div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:32px;">
+          <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div>
+        </div>
+        <div class="onboard-card">
+          <h2>Enter OTP</h2>
+          <p>Sent to +91 <span id="shown-phone">XXXXXXXXXX</span>. Use <strong style="color:#22C55E">1234</strong> for demo.</p>
+          <div class="otp-row">
+            <input type="tel" class="otp-box" maxlength="1" id="otp1" oninput="otpInput(this,1)">
+            <input type="tel" class="otp-box" maxlength="1" id="otp2" oninput="otpInput(this,2)">
+            <input type="tel" class="otp-box" maxlength="1" id="otp3" oninput="otpInput(this,3)">
+            <input type="tel" class="otp-box" maxlength="1" id="otp4" oninput="otpInput(this,4)">
+          </div>
+          <button class="btn-green" id="otp-verify-btn" onclick="verifyOTP()" style="opacity:0.5;pointer-events:none;">Verify & Continue →</button>
+          <div style="text-align:center;margin-top:14px;color:rgba(255,255,255,0.4);font-size:13px;">Resend OTP in 30s</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ONBOARDING: DETAILS -->
+    <div class="view hidden-right" id="view-details">
+      <div class="onboard-bg" style="padding-bottom:40px">
+        <div class="logo-area"><div class="logo-icon">🏪</div><div class="logo-title">Your Stall</div></div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:32px;">
+          <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot active"></div><div class="step-dot"></div>
+        </div>
+        <div class="onboard-card">
+          <h2>Tell us about yourself</h2>
+          <p>This is how customers will see you on the map.</p>
+          <div class="input-wrap" style="margin-bottom:16px">
+            <input type="text" class="onboard-input plain" placeholder="Stall Name (e.g. Ravi Fruits)" id="stall-name">
+          </div>
+          <div style="margin-bottom:20px">
+            <div style="color:rgba(255,255,255,0.55);font-size:13px;font-weight:600;margin-bottom:10px;">Select Category</div>
+            <div class="cat-grid">
+              <div class="cat-chip" onclick="selectCat(this,'Fruits & Veg')"><span class="icon">🍎</span>Fruits & Veg</div>
+              <div class="cat-chip" onclick="selectCat(this,'Street Food')"><span class="icon">🍜</span>Street Food</div>
+              <div class="cat-chip" onclick="selectCat(this,'Beverages')"><span class="icon">🧃</span>Beverages</div>
+              <div class="cat-chip" onclick="selectCat(this,'Snacks')"><span class="icon">🍿</span>Snacks</div>
+              <div class="cat-chip" onclick="selectCat(this,'Flowers')"><span class="icon">💐</span>Flowers</div>
+              <div class="cat-chip" onclick="selectCat(this,'Other')"><span class="icon">🛍️</span>Other</div>
+            </div>
+          </div>
+          <button class="btn-green" onclick="goTo('view-location')">Next: Set Location →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ONBOARDING: LOCATION -->
+    <div class="view hidden-right" id="view-location">
+      <div class="onboard-bg" style="padding-bottom:40px">
+        <div class="logo-area"><div class="logo-icon">📍</div><div class="logo-title">Your Location</div></div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:28px;">
+          <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot active"></div>
+        </div>
+        <div class="onboard-card">
+          <h2>Enable Location</h2>
+          <p>Your live location helps nearby customers find your stall instantly.</p>
+          <div class="loc-map-mock">
+            <svg viewBox="0 0 334 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="334" height="180" fill="#e8edf5"/>
+              <rect x="0" y="70" width="334" height="18" fill="#fff" rx="2"/>
+              <rect x="0" y="100" width="334" height="18" fill="#fff" rx="2"/>
+              <rect x="80" y="0" width="18" height="180" fill="#fff" rx="2"/>
+              <rect x="200" y="0" width="18" height="180" fill="#fff" rx="2"/>
+              <circle cx="167" cy="90" r="28" fill="rgba(37,99,235,0.12)" class="vendor-ping"/>
+              <circle cx="167" cy="90" r="18" fill="rgba(37,99,235,0.15)"/>
+              <circle cx="167" cy="90" r="10" fill="#2563EB"/>
+              <circle cx="167" cy="90" r="5" fill="#fff"/>
+              <text x="167" y="130" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="700" font-family="system-ui">You are here</text>
+            </svg>
+          </div>
+          <button class="btn-blue" onclick="enableLocation()" style="margin-bottom:10px">Enable Location 📍</button>
+          <button onclick="goTo('view-dashboard')" style="width:100%;padding:14px;background:transparent;border:1.5px solid rgba(255,255,255,0.2);border-radius:16px;color:rgba(255,255,255,0.5);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font)">Skip for now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="view hidden-right" id="view-dashboard">
+      <div class="dash-screen">
+        <!-- Header -->
+        <div class="dash-header">
+          <div>
+            <div class="vendor-name" id="d-name">🍎 Ravi Fruits</div>
+            <div class="vendor-sub" id="d-sub">Fruits & Veg · Kphb Colony</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div id="live-badge" class="live-status-badge">
+              <div class="live-dot"></div>
+              <span id="live-badge-text">Offline</span>
+            </div>
+            <div class="avatar" id="d-avatar">R</div>
+          </div>
+        </div>
+
+        <!-- GO LIVE -->
+        <div class="live-section">
+          <div class="live-row">
+            <div>
+              <div class="live-label">Stall Status</div>
+              <div class="live-title" id="live-title-text">Go Live</div>
+            </div>
+            <div class="toggle-wrap" onclick="toggleLive()">
+              <div class="toggle-track" id="live-toggle">
+                <div class="toggle-thumb" id="live-thumb">⚡</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--gray)" id="live-hint">Tap to start broadcasting your stall to nearby customers</div>
+        </div>
+
+        <!-- MAP -->
+        <div class="map-section" id="map-section" onclick="tapMap()">
+          <svg viewBox="0 0 358 220" xmlns="http://www.w3.org/2000/svg" id="map-svg">
+            <rect width="358" height="220" fill="#e8edf5"/>
+            <!-- Roads -->
+            <rect x="0" y="85" width="358" height="22" fill="#fff"/>
+            <rect x="0" y="125" width="358" height="16" fill="#fff"/>
+            <rect x="60" y="0" width="22" height="220" fill="#fff"/>
+            <rect x="160" y="0" width="16" height="220" fill="#fff"/>
+            <rect x="260" y="0" width="22" height="220" fill="#fff"/>
+            <!-- Buildings -->
+            <rect x="10" y="10" width="42" height="68" rx="4" fill="#dce3ef"/>
+            <rect x="90" y="10" width="62" height="68" rx="4" fill="#dce3ef"/>
+            <rect x="184" y="10" width="66" height="68" rx="4" fill="#dce3ef"/>
+            <rect x="10" y="118" width="42" height="95" rx="4" fill="#dce3ef"/>
+            <rect x="90" y="150" width="62" height="63" rx="4" fill="#dce3ef"/>
+            <rect x="184" y="148" width="66" height="65" rx="4" fill="#dce3ef"/>
+            <rect x="290" y="10" width="58" height="68" rx="4" fill="#dce3ef"/>
+            <rect x="290" y="148" width="58" height="65" rx="4" fill="#dce3ef"/>
+            <!-- Vendor pulse rings (hidden when offline) -->
+            <circle id="map-ping-outer" cx="120" cy="96" r="0" fill="rgba(34,197,94,0.15)" style="transition:r 0.5s"/>
+            <circle id="map-ping-mid" cx="120" cy="96" r="0" fill="rgba(34,197,94,0.2)" style="transition:r 0.5s"/>
+            <circle id="map-vendor-dot" cx="120" cy="96" r="0" fill="#22C55E" style="transition:r 0.4s"/>
+            <circle cx="120" cy="96" r="0" id="map-vendor-white" fill="#fff"/>
+            <!-- Vendor label -->
+            <rect id="map-label-bg" x="0" y="0" width="0" height="0" rx="8" fill="#fff"/>
+            <text id="map-label" x="120" y="80" text-anchor="middle" fill="#16A34A" font-size="10" font-weight="700" font-family="system-ui" opacity="0"></text>
+            <!-- Nearby customers -->
+            <circle id="cust1" cx="220" cy="155" r="6" fill="#2563EB" opacity="0"/>
+            <circle id="cust2" cx="300" cy="70" r="6" fill="#2563EB" opacity="0"/>
+            <circle id="cust3" cx="40" cy="160" r="6" fill="#2563EB" opacity="0"/>
+          </svg>
+          <div class="spot-overlay" id="spot-overlay">
+            <div class="spot-overlay-inner">📍 Spot Updated!</div>
+          </div>
+          <button class="map-overlay-btn" onclick="event.stopPropagation();updateSpot()">📍 Update Spot</button>
+        </div>
+
+        <!-- STATUS CHIPS -->
+        <div class="status-section">
+          <div class="section-title">Availability</div>
+          <div class="status-chips">
+            <button class="status-chip active-green" id="chip-available" onclick="setStatus('available')">✅ Available</button>
+            <button class="status-chip" id="chip-busy" onclick="setStatus('busy')">🟠 Busy</button>
+            <button class="status-chip" id="chip-closing" onclick="setStatus('closing')">⏰ Closing Soon</button>
+          </div>
+        </div>
+
+        <!-- INVENTORY -->
+        <div class="inv-section">
+          <div class="inv-header">
+            <div class="section-title" style="margin-bottom:0">Today's Stock</div>
+            <button class="add-item-btn" onclick="showAddModal()">+ Add Item</button>
+          </div>
+          <div class="inv-list" id="inv-list">
+            <div class="inv-item">
+              <div class="inv-left"><span class="inv-emoji">🍉</span><div><div class="inv-name">Watermelon</div><div class="inv-unit">Per piece</div></div></div>
+              <div class="inv-price-row"><div class="inv-price" id="price-wm">₹30</div><div class="inv-happy-price" id="happy-wm" style="display:none">₹22</div></div>
+            </div>
+            <div class="inv-item">
+              <div class="inv-left"><span class="inv-emoji">🥭</span><div><div class="inv-name">Mango (Alphonso)</div><div class="inv-unit">Per dozen</div></div></div>
+              <div class="inv-price-row"><div class="inv-price" id="price-mg">₹180</div><div class="inv-happy-price" id="happy-mg" style="display:none">₹130</div></div>
+            </div>
+            <div class="inv-item">
+              <div class="inv-left"><span class="inv-emoji">🍌</span><div><div class="inv-name">Banana</div><div class="inv-unit">Per dozen</div></div></div>
+              <div class="inv-price-row"><div class="inv-price" id="price-bn">₹40</div><div class="inv-happy-price" id="happy-bn" style="display:none">₹28</div></div>
+            </div>
+            <div class="inv-item">
+              <div class="inv-left"><span class="inv-emoji">🍇</span><div><div class="inv-name">Grapes (Green)</div><div class="inv-unit">Per 500g</div></div></div>
+              <div class="inv-price-row"><div class="inv-price" id="price-gr">₹60</div><div class="inv-happy-price" id="happy-gr" style="display:none">₹45</div></div>
+            </div>
+          </div>
+          <button class="happy-hour-btn" id="happy-btn" onclick="toggleHappy()">
+            🔥 Start Happy Hour
+          </button>
+        </div>
+
+        <div style="height:8px"></div>
+      </div>
+
+      <!-- Bottom Nav — Dashboard (Home active) -->
+      <div class="bottom-nav">
+        <div class="nav-item active" onclick="scrollToSection('live-section')">
+          <div class="nav-icon">🏠</div>
+          <div class="nav-label" style="color:#16A34A">Home</div>
+          <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('map-section')">
+          <div class="nav-icon">🗺️</div>
+          <div class="nav-label">Map</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('inv-section')">
+          <div class="nav-icon">📦</div>
+          <div class="nav-label">Stock</div>
+        </div>
+        <div class="nav-item" onclick="goTo('view-insights','right')">
+          <div class="nav-icon">📊</div>
+          <div class="nav-label">Insights</div>
+        </div>
+        <div class="nav-item" onclick="showToast('Settings coming soon!')">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-label">Settings</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIGHTS VIEW -->
+    <div class="view hidden-right" id="view-insights">
+      <div class="insights-screen">
+        <!-- Header (mirrors dashboard header) -->
+        <div class="dash-header">
+          <div>
+            <div class="vendor-name" id="ins-name">🍎 Ravi Fruits</div>
+            <div class="vendor-sub" id="ins-sub">Fruits &amp; Veg · Kphb Colony</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div id="ins-live-badge" class="live-status-badge">
+              <div class="live-dot"></div>
+              <span id="ins-live-badge-text">Offline</span>
+            </div>
+            <div class="avatar" id="ins-avatar">R</div>
+          </div>
+        </div>
+
+        <!-- Analytics content -->
+        <div class="analytics-section">
+          <div class="section-title">Today's Insights</div>
+          <div class="analytics-grid">
+            <div class="analytics-card">
+              <div class="ac-icon">💰</div>
+              <div class="ac-label">Daily Sales</div>
+              <div class="ac-value">₹1,240</div>
+              <div class="ac-trend">↑ 18% vs yesterday</div>
+            </div>
+            <div class="analytics-card">
+              <div class="ac-icon">👥</div>
+              <div class="ac-label">Customers</div>
+              <div class="ac-value">34</div>
+              <div class="ac-trend">↑ 6 new today</div>
+            </div>
+            <div class="analytics-card">
+              <div class="ac-icon">📡</div>
+              <div class="ac-label">Profile Views</div>
+              <div class="ac-value">127</div>
+              <div class="ac-trend">↑ 42% this week</div>
+            </div>
+            <div class="analytics-card">
+              <div class="ac-icon">⭐</div>
+              <div class="ac-label">Rating</div>
+              <div class="ac-value">4.8</div>
+              <div class="ac-trend">12 reviews</div>
+            </div>
+          </div>
+          <div class="demand-card">
+            <div style="font-size:14px;font-weight:700;color:#111">🔥 Nearby Demand</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:2px">What customers are searching for</div>
+            <div class="demand-items">
+              <div class="demand-row"><span class="demand-name">🍉 Watermelon</span><div class="demand-bar-bg"><div class="demand-bar" style="width:85%;background:#22C55E"></div></div><span class="demand-count" style="color:#16A34A">85</span></div>
+              <div class="demand-row"><span class="demand-name">🥭 Mango</span><div class="demand-bar-bg"><div class="demand-bar" style="width:72%;background:#2563EB"></div></div><span class="demand-count">72</span></div>
+              <div class="demand-row"><span class="demand-name">🍌 Banana</span><div class="demand-bar-bg"><div class="demand-bar" style="width:55%;background:#F97316"></div></div><span class="demand-count" style="color:#F97316">55</span></div>
+              <div class="demand-row"><span class="demand-name">🍊 Orange</span><div class="demand-bar-bg"><div class="demand-bar" style="width:38%"></div></div><span class="demand-count">38</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="height:8px"></div>
+      </div>
+
+      <!-- Bottom Nav — Insights active -->
+      <div class="bottom-nav">
+        <div class="nav-item" onclick="goTo('view-dashboard','left')">
+          <div class="nav-icon">🏠</div>
+          <div class="nav-label">Home</div>
+        </div>
+        <div class="nav-item" onclick="goTo('view-dashboard','left')">
+          <div class="nav-icon">🗺️</div>
+          <div class="nav-label">Map</div>
+        </div>
+        <div class="nav-item" onclick="goTo('view-dashboard','left')">
+          <div class="nav-icon">📦</div>
+          <div class="nav-label">Stock</div>
+        </div>
+        <div class="nav-item active">
+          <div class="nav-icon">📊</div>
+          <div class="nav-label" style="color:#16A34A">Insights</div>
+          <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="showToast('Settings coming soon!')">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-label">Settings</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.screen -->
+
+  <!-- Language FAB (inside phone-wrap so position:absolute anchors to it) -->
+  <div class="lang-fab" id="lang-fab" style="display:none">
+    <button class="lang-fab-btn" onclick="cycleLang()">A/అ/<span style="font-family:serif">अ</span></button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+</div><!-- /.phone-wrap -->
+
+<!-- Add Item Modal -->
+<div class="modal-overlay" id="add-modal" onclick="closeModal()">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add New Item</div>
+    <div class="form-group">
+      <label class="form-label">Item Name</label>
+      <input type="text" class="form-input" placeholder="e.g. Papaya, Sweet Corn..." id="new-item-name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Price (₹)</label>
+      <input type="number" class="form-input" placeholder="e.g. 50" id="new-item-price">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Unit</label>
+      <input type="text" class="form-input" placeholder="e.g. Per kg, Per piece" id="new-item-unit">
+    </div>
+    <button class="btn-green" onclick="addItem()" style="margin-top:8px">Add to Stock ✓</button>
+  </div>
+</div>
+
+
+<script src="js/app.js"></script></body>
+</html>
