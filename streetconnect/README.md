@@ -1,21 +1,31 @@
-# StreetConnect 🚀
+## 🌍 StreetConnect — Real-Time Street Vendor Discovery Platform
 
-A real-time street vendor discovery platform connecting vendors and customers.
+StreetConnect is a smart location-based platform designed to bridge the gap between street vendors and nearby customers. Unlike traditional food discovery apps that focus on static businesses, this system enables dynamic, real-time visibility of mobile vendors such as carts and small stalls.
 
-## 🧩 Features
-- Live vendor tracking
-- Vendor dashboard (Go Live, inventory, analytics)
-- Customer discovery interface
-- Multi-language support
+### 🚨 Problem Statement
+Street vendors lack digital visibility, while customers struggle to locate nearby, active vendors in real time. Existing platforms fail to capture the dynamic nature of informal markets.
 
-## 🛠 Tech Stack
-- HTML, CSS, JavaScript
-- React (CDN-based)
-- Framer Motion (animations)
+### 💡 Solution
+StreetConnect introduces a dual-interface ecosystem:
+- **Vendor App** → Allows vendors to go live, share location, and update availability status  
+- **User App** → Enables users to discover nearby vendors, view live status, and track them in real time  
 
-## 📁 Structure
-- user-app/
-- vendor-view/
+### ⚙️ Core Features
+- 📍 Live location tracking (vendor-controlled activation)
+- 🟢 Real-time availability toggle (Go Live / Offline)
+- 🔔 Smart notifications for nearby active vendors
+- 🗺️ Map-based discovery interface
+- 📱 Mobile-first responsive UI
 
-## 🌍 Vision
-Empowering local street vendors with digital visibility.
+### 🧠 System Thinking
+The platform operates on an event-driven model where vendor activity triggers real-time updates for users. This ensures efficient data flow and minimizes unnecessary tracking when vendors are offline.
+
+### 🛠️ Tech Stack
+- Frontend: HTML, CSS, JavaScript  
+- Version Control: Git + GitHub  
+- Design: UI/UX prototyping and user flow optimization  
+
+### 🎯 Impact Vision
+Empowering local vendors with digital presence while enhancing urban accessibility for users—creating a scalable model for smart, inclusive marketplaces.
+
+---
