@@ -134,8 +134,8 @@ StreetConnect/
 🛠️ Installation & Setup
 
 # Clone the repository
-git clone
- https://github.com/drx2k06/Street-Connect
+git clone https://github.com/drx2k06/Street-Connect
+
 # Navigate into the project
 cd streetconnect
 
